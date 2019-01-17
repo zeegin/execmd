@@ -25,7 +25,7 @@ int windows_system(const char *cmd)
 		return 1;
 	}
 
-	WaitForSingleObject(pi.hProcess, INFINITE);
+	WaitForSingleObject(pi.hProcess, 60000);
 	CloseHandle(pi.hProcess);
 	CloseHandle(pi.hThread);
 	
@@ -39,12 +39,13 @@ int main(int argc, char ** argv)
 		return 2;
 	}
 
-	std::string cmd;
+	std::string cmd = "cmd /S /C \" ";
 	for (int i = 1; i < argc; i++)
 	{
 		cmd += argv[i];
 		cmd += " ";
 	}
+	cmd += " \"";
 
 	return windows_system(cmd.c_str());
 }
